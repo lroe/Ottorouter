@@ -10,8 +10,8 @@ A typical solution used by big companies experiencing a high number of requests 
 If one endpoint has reached its rate limit, the requests need to be automatically routed to another endpoint that has not reached its rate limit.
 
 
-![[Pasted image 20240125120558.png]]
 
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240125120558.png">
 
 ### 2. Task-Complexity Based Routing
 The cost per million tokens of a list of models are specified below:
@@ -30,7 +30,9 @@ Not every question needs to be routed to GPT-4. Some prompts, such as "What is 2
 
 This problem could be solved by assigning a complexity score to each prompt and selecting the best model based on that.
 
-![[Pasted image 20240125121152.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240125120558.png">
+
 Here, a complexity score is assigned to each model. For complexity above 8, prompt is routed to GPT 4.
 For the rest of the complexity scores ,the routing engine uses its routing algorithm to select the best model that can efficiently respond to that prompt/
 
@@ -92,7 +94,8 @@ The configuration file  for a model includes all the necessary information such 
 
 Adding a new model is achieved by creating a new configuration file with the required information.
 
-![[Pasted image 20240125123612.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240125123612.png">
 	a sample config file.
 
 # Existing Solutions
@@ -121,7 +124,8 @@ This allows a prompt to be routed to the best LLM model by considering the compl
 
 In-order to explain the working of Ottorouter, its best to divide it into three parts : LHS (Left Hand Side), ROUTER ENGINE, RHS (Right Hand Side)
 
-![[Pasted image 20240126191925.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240126191925.png">
 
 ### LHS
 
@@ -138,7 +142,9 @@ This specific instance is accessed by its API Key.
 
 The configuration file for a model endpoint instance contains all the required informations related to that model endpoint instance. This include informations like API_Key, Benchmark_Scores, Latency,API_Cost and so on.
 
-![[Pasted image 20240126195433.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240126195433.png">
+
 
 Filters should be able to filter based on any of the fields.
 
@@ -150,7 +156,8 @@ Why we use use files to reperesent configuration of model endpoint instances?
 # How to go about building this?
 ### First lets consider the Left Hand Side (LHS)
 
-![[Pasted image 20240126205854.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240126205854.png">
 1. A prompt, along with parameters like temperature is given
 2. Number of tokens in that prompt is calculated. We use a specific tokenizer like llama tokenzier as a reference for all models.
 3. Complexity score for that prompt is calculated.
@@ -173,7 +180,8 @@ Why we use use files to reperesent configuration of model endpoint instances?
 	 A query language should be developed to specify the filters.
 
 ### Now lets consider the RHS
-![[Pasted image 20240126203955.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240126203955.png">
 Here we have a list of model endpoint instance configuration files.
 
 First we need to validate each config files.
@@ -187,7 +195,8 @@ Now, if any update is made to the config file, it will be only be reflected in t
 Now, we need to build a data structure to internally represent the endpoint instance informations.
 
 ## Q. How does a user add a new endpoint instance configuration file?
-![[Pasted image 20240126210020.png]]
+
+<img src="https://github.com/lroe/Ottorouter/blob/main/Pasted%20image%20240126210020.png">
 (example directory structure of config file)
 In the reference_folder, a sample configuration file containing the semantic information is there.
 To add a new endpoint instance, take its corresponding sample configuration file and place it into the app.bin file with the necessary informations included in it.
